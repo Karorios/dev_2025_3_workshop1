@@ -32,6 +32,9 @@ class Games:
             return "muy bajo"
     
     def ta_te_ti_ganador(self, tablero):
+        # Revisar si el tablero está lleno
+        tablero_lleno = all(" " not in fila for fila in tablero)
+
         # Revisar filas
         for fila in tablero:
             if fila[0] != " " and fila[0] == fila[1] == fila[2]:
@@ -44,18 +47,22 @@ class Games:
         
         # Revisar diagonal principal
         if tablero[0][0] != " " and tablero[0][0] == tablero[1][1] == tablero[2][2]:
+            # si hay espacios vacíos todavía, no hay ganador aún
+            if not tablero_lleno:
+                return "continua"
             return tablero[0][0]
         
         # Revisar diagonal secundaria
         if tablero[0][2] != " " and tablero[0][2] == tablero[1][1] == tablero[2][0]:
+            if not tablero_lleno:
+                return "continua"
             return tablero[0][2]
         
-        # Si no hay ganador, revisar si tablero está lleno
-        for fila in tablero:
-            if " " in fila:
-                return "continua"
-        
-        return "empate"
+        # Si no hay ganador
+        if tablero_lleno:
+            return "empate"
+        else:
+            return "continua"
     
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         return [random.choice(colores_disponibles) for _ in range(longitud)]

@@ -98,3 +98,33 @@ class Magic:
     def es_numero_armstrong(self, n):
         """Verifica si un número es de Armstrong."""
         digitos = str(n)
+        num_digitos = len(digitos)
+        suma = sum(int(d) ** num_digitos for d in digitos)
+        return suma == n
+
+    def es_cuadrado_magico(self, cuadrado):
+        """Verifica si una matriz cuadrada es un cuadrado mágico."""
+        n = len(cuadrado)
+        if any(len(fila) != n for fila in cuadrado):
+            return False  # No es cuadrado
+
+        # Suma de referencia (primera fila)
+        suma_ref = sum(cuadrado[0])
+
+        # Verificar filas
+        for fila in cuadrado:
+            if sum(fila) != suma_ref:
+                return False
+
+        # Verificar columnas
+        for j in range(n):
+            if sum(cuadrado[i][j] for i in range(n)) != suma_ref:
+                return False
+
+        # Verificar diagonales
+        if sum(cuadrado[i][i] for i in range(n)) != suma_ref:
+            return False
+        if sum(cuadrado[i][n - 1 - i] for i in range(n)) != suma_ref:
+            return False
+
+        return True
