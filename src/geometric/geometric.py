@@ -37,18 +37,17 @@ class Geometria:
         return (d1 * d2) / 2
 
     # Pentágono regular
-    def area_pentagono_regular(self, perimetro, apotema):
-        return (perimetro * apotema) / 2
-
-    def perimetro_pentagono_regular(self, lado):
-        return 5 * lado
+    def area_pentagono_regular(self, lado, apotema):
+        if apotema <=0 or lado <=0:
+            return 0
+        return (5*lado*apotema)/2
 
     # Hexágono regular
-    def area_hexagono_regular(self, perimetro, apotema):
-        return (perimetro * apotema) / 2
-
-    def perimetro_hexagono_regular(self, lado):
-        return 6 * lado
+    def area_hexagono_regular(self,lado,apotema):
+        if apotema == 0 or lado == 0:
+            return 0
+        perimetro = 6*lado
+        return (perimetro*apotema)/2
 
     # Cubo
     def volumen_cubo(self, lado):
@@ -83,16 +82,27 @@ class Geometria:
     def pendiente_recta(self, x1, y1, x2, y2):
         return (y2 - y1) / (x2 - x1)
 
-    # Ecuación de la recta en forma Ax + By + C = 0
     def ecuacion_recta(self, x1, y1, x2, y2):
-        A = y1 - y2
-        B = x2 - x1
-        C = (x1 * y2) - (x2 * y1)
+        # Coeficientes
+        A = y2 - y1
+        B = -(x2 - x1)
+        C = (x2 - x1) * y1 - (y2 - y1) * x1
+
+        # Normalización para que siempre dé el mismo resultado
+        if B < 0 or (B == 0 and A < 0):
+            A, B, C = -A, -B, -C
+
         return (A, B, C)
 
     # Polígono regular
-    def area_poligono_regular(self, n, perimetro, apotema):
+    def area_poligono_regular(self, n_lados, lado, apotema):
+        if n_lados < 3 or lado <= 0 or apotema <= 0:
+            return 0
+        perimetro = n_lados * lado
         return (perimetro * apotema) / 2
 
-    def perimetro_poligono_regular(self, n, lado):
-        return n * lado
+    def perimetro_poligono_regular(self, n_lados, lado):
+        if n_lados < 3 or lado <= 0:
+            return 0
+        return n_lados * lado
+
