@@ -50,7 +50,7 @@ class Games:
         if tablero[0][2] != " " and tablero[0][2] == tablero[1][1] == tablero[2][0]:
             return tablero[0][2]
         
-        # Revisar si tablero está lleno
+        # Si no hay ganador, revisar si tablero está lleno
         for fila in tablero:
             if " " in fila:
                 return "continua"

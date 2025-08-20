@@ -1,5 +1,3 @@
-import math
-
 class Geometria:
     """
     Class with geometric exercises.
@@ -7,87 +5,70 @@ class Geometria:
     """
 
     def area_rectangulo(self, base, altura):
+        """
+        Calcula el área de un rectángulo.
+        """
         return base * altura
 
-    def perimetro_rectangulo(self, base, altura):
-        return 2 * (base + altura)
-
-    def area_circulo(self, radio):
-        return math.pi * radio**2
-
-    def perimetro_circulo(self, radio):
-        return 2 * math.pi * radio
-
     def area_triangulo(self, base, altura):
+        """
+        Calcula el área de un triángulo.
+        """
         return (base * altura) / 2
 
-    def perimetro_triangulo(self, lado1, lado2, lado3):
-        return lado1 + lado2 + lado3
+    def area_circulo(self, radio):
+        """
+        Calcula el área de un círculo.
+        """
+        import math
+        return math.pi * (radio ** 2)
 
-    def es_triangulo_valido(self, lado1, lado2, lado3):
-        if lado1 <= 0 or lado2 <= 0 or lado3 <= 0:
-            return False
-        return (lado1 + lado2 > lado3 and
-                lado1 + lado3 > lado2 and
-                lado2 + lado3 > lado1)
+    def perimetro_rectangulo(self, base, altura):
+        """
+        Calcula el perímetro de un rectángulo.
+        """
+        return 2 * (base + altura)
 
-    def area_trapecio(self, base_mayor, base_menor, altura):
-        return ((base_mayor + base_menor) * altura) / 2
-
-    def area_rombo(self, diagonal_mayor, diagonal_menor):
-        return (diagonal_mayor * diagonal_menor) / 2
-
-    def area_pentagono_regular(self, lado, apotema):
-        perimetro = 5 * lado
-        return (perimetro * apotema) / 2
-
-    def perimetro_pentagono_regular(self, lado):
-        return 5 * lado
-
-    def area_hexagono_regular(self, lado, apotema):
-        perimetro = 6 * lado
-        return (perimetro * apotema) / 2
-
-    def perimetro_hexagono_regular(self, lado):
-        return 6 * lado
+    def perimetro_circulo(self, radio):
+        """
+        Calcula el perímetro (circunferencia) de un círculo.
+        """
+        import math
+        return 2 * math.pi * radio
 
     def volumen_cubo(self, lado):
-        return lado**3
-
-    def area_superficie_cubo(self, lado):
-        return 6 * (lado**2)
+        """
+        Calcula el volumen de un cubo.
+        """
+        return lado ** 3
 
     def volumen_esfera(self, radio):
-        return (4/3) * math.pi * (radio**3)
+        """
+        Calcula el volumen de una esfera.
+        """
+        import math
+        return (4/3) * math.pi * (radio ** 3)
 
-    def area_superficie_esfera(self, radio):
-        return 4 * math.pi * (radio**2)
-
-    def volumen_cilindro(self, radio, altura):
-        return math.pi * (radio**2) * altura
-
-    def area_superficie_cilindro(self, radio, altura):
-        return 2 * math.pi * radio * (radio + altura)
-
-    def distancia_entre_puntos(self, x1, y1, x2, y2):
+    def distancia_puntos(self, x1, y1, x2, y2):
+        """
+        Calcula la distancia entre dos puntos en el plano.
+        """
+        import math
         return math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
-    def punto_medio(self, x1, y1, x2, y2):
-        return ((x1 + x2) / 2, (y1 + y2) / 2)
-
     def pendiente_recta(self, x1, y1, x2, y2):
+        """
+        Calcula la pendiente de la recta que pasa por dos puntos.
+        """
+        if x2 - x1 == 0:
+            return None  # pendiente indefinida (recta vertical)
         return (y2 - y1) / (x2 - x1)
 
     def ecuacion_recta(self, x1, y1, x2, y2):
-        # Forma: (y2 - y1)x - (x2 - x1)y + ((x2 - x1)y1 - (y2 - y1)x1) = 0
+        """
+        Devuelve la ecuación de la recta en forma Ax + By + C = 0 que pasa por dos puntos.
+        """
         A = y2 - y1
         B = -(x2 - x1)
         C = (x2 - x1) * y1 - (y2 - y1) * x1
         return (A, B, C)
-
-    def area_poligono_regular(self, num_lados, lado, apotema):
-        perimetro = num_lados * lado
-        return (perimetro * apotema) / 2
-
-    def perimetro_poligono_regular(self, num_lados, lado):
-        return num_lados * lado

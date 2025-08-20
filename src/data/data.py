@@ -1,152 +1,69 @@
 class Data:
     """
-    Clase con métodos para operaciones y manipulaciones de estructuras de datos.
-    Incluye implementaciones y algoritmos para arreglos, listas y otras estructuras.
+    Clase con métodos para manipulación de datos en listas y estructuras similares.
+    Incluye operaciones como suma, promedio, búsqueda de máximos/mínimos y limpieza de duplicados.
     """
 
-    def invertir_lista(self, lista):
+    def suma_lista(self, lista):
         """
-        Invierte el orden de los elementos en una lista sin usar reversed() o lista[::-1].
+        Calcula la suma de todos los elementos de una lista numérica.
         """
-        resultado = []
-        for i in range(len(lista) - 1, -1, -1):
-            resultado.append(lista[i])
-        return resultado
+        return sum(lista)
 
-    def buscar_elemento(self, lista, elemento):
+    def promedio_lista(self, lista):
         """
-        Busca un elemento en una lista y devuelve su índice (o -1 si no existe).
+        Calcula el promedio de una lista numérica.
         """
-        for i, val in enumerate(lista):
-            if val == elemento:
-                return i
-        return -1
+        if not lista:
+            return 0
+        return sum(lista) / len(lista)
+
+    def maximo_lista(self, lista):
+        """
+        Devuelve el valor máximo de una lista.
+        """
+        return max(lista) if lista else None
+
+    def minimo_lista(self, lista):
+        """
+        Devuelve el valor mínimo de una lista.
+        """
+        return min(lista) if lista else None
 
     def eliminar_duplicados(self, lista):
         """
         Elimina elementos duplicados manteniendo el orden original.
+        Distingue entre valores iguales pero de distinto tipo (ej: 1 y True).
         """
         resultado = []
         visto = set()
         for item in lista:
-            if item not in visto:
+            clave = (type(item), item)  # clave única por tipo y valor
+            if clave not in visto:
                 resultado.append(item)
-                visto.add(item)
+                visto.add(clave)
         return resultado
 
-    def merge_ordenado(self, lista1, lista2):
+    def ordenar_lista(self, lista):
         """
-        Combina dos listas ordenadas en una sola lista ordenada.
+        Ordena una lista de forma ascendente.
         """
-        i, j = 0, 0
-        resultado = []
-        while i < len(lista1) and j < len(lista2):
-            if lista1[i] <= lista2[j]:
-                resultado.append(lista1[i])
-                i += 1
-            else:
-                resultado.append(lista2[j])
-                j += 1
-        # agregar restos
-        resultado.extend(lista1[i:])
-        resultado.extend(lista2[j:])
-        return resultado
+        return sorted(lista)
 
-    def rotar_lista(self, lista, k):
+    def contar_elemento(self, lista, elemento):
         """
-        Rota los elementos de una lista k posiciones a la derecha.
+        Cuenta cuántas veces aparece un elemento en la lista.
         """
-        if not lista:
-            return []
-        n = len(lista)
-        k = k % n
-        return lista[-k:] + lista[:-k]
+        return lista.count(elemento)
 
-    def encuentra_numero_faltante(self, lista):
+    def existe_elemento(self, lista, elemento):
         """
-        Encuentra el número faltante en una lista de enteros del 1 al n.
+        Verifica si un elemento existe en la lista.
         """
-        n = len(lista) + 1
-        suma_total = n * (n + 1) // 2
-        return suma_total - sum(lista)
+        return elemento in lista
 
-    def es_subconjunto(self, conjunto1, conjunto2):
+    def concatenar_listas(self, lista1, lista2):
         """
-        Verifica si conjunto1 es subconjunto de conjunto2.
+        Concatena dos listas en una sola.
         """
-        for item in conjunto1:
-            if item not in conjunto2:
-                return False
-        return True
-
-    def implementar_pila(self):
-        """
-        Implementa una pila con métodos push, pop, peek y is_empty.
-        """
-        pila = []
-
-        def push(x):
-            pila.append(x)
-
-        def pop():
-            if pila:
-                return pila.pop()
-            return None
-
-        def peek():
-            if pila:
-                return pila[-1]
-            return None
-
-        def is_empty():
-            return len(pila) == 0
-
-        return {
-            "push": push,
-            "pop": pop,
-            "peek": peek,
-            "is_empty": is_empty,
-        }
-
-    def implementar_cola(self):
-        """
-        Implementa una cola con métodos enqueue, dequeue, peek y is_empty.
-        """
-        cola = []
-
-        def enqueue(x):
-            cola.append(x)
-
-        def dequeue():
-            if cola:
-                return cola.pop(0)
-            return None
-
-        def peek():
-            if cola:
-                return cola[0]
-            return None
-
-        def is_empty():
-            return len(cola) == 0
-
-        return {
-            "enqueue": enqueue,
-            "dequeue": dequeue,
-            "peek": peek,
-            "is_empty": is_empty,
-        }
-
-    def matriz_transpuesta(self, matriz):
-        """
-        Calcula la transpuesta de una matriz.
-        """
-        if not matriz:
-            return []
-        filas = len(matriz)
-        columnas = len(matriz[0])
-        resultado = [[0] * filas for _ in range(columnas)]
-        for i in range(filas):
-            for j in range(columnas):
-                resultado[j][i] = matriz[i][j]
-        return resultado
+        return lista1 + lista2
