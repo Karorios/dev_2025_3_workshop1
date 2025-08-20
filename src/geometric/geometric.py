@@ -41,6 +41,11 @@ class Geometria:
         if apotema <=0 or lado <=0:
             return 0
         return (5*lado*apotema)/2
+    #pentagono 
+    def perimetro_pentagono_regular(self, lado):
+        if lado <= 0:
+            return 0
+        return 5 * lado
 
     # Hexágono regular
     def area_hexagono_regular(self,lado,apotema):
@@ -48,6 +53,13 @@ class Geometria:
             return 0
         perimetro = 6*lado
         return (perimetro*apotema)/2
+    
+    def perimetro_hexagono_regular(self, lado):
+    
+        if lado <= 0:
+            return 0
+        return 6 * lado
+
 
     # Cubo
     def volumen_cubo(self, lado):
@@ -81,25 +93,31 @@ class Geometria:
     # Pendiente de una recta
     def pendiente_recta(self, x1, y1, x2, y2):
         return (y2 - y1) / (x2 - x1)
-
+    #ecuacion recta
     def ecuacion_recta(self, x1, y1, x2, y2):
-        # Coeficientes
-        A = y2 - y1
-        B = -(x2 - x1)
-        C = (x2 - x1) * y1 - (y2 - y1) * x1
-
-        # Normalización para que siempre dé el mismo resultado
-        if B < 0 or (B == 0 and A < 0):
-            A, B, C = -A, -B, -C
-
-        return (A, B, C)
+        if y1 == y2:  
+            return (0, 1, -y1)
+        elif x1 == x2: 
+            return (1, 0, -x1)
+        else:
+            A = y2 - y1
+            B = x1 - x2
+            C = x2*y1 - x1*y2
+            
+            from math import gcd
+            factor = gcd(gcd(int(A), int(B)), int(C))
+            if factor != 0:
+                A //= factor
+                B //= factor
+                C //= factor
+            return (A, B, C)
 
     # Polígono regular
-    def area_poligono_regular(self, n_lados, lado, apotema):
-        if n_lados < 3 or lado <= 0 or apotema <= 0:
+    def area_poligono_regular(self, n, lado, apotema):
+        if n <= 0 or lado <= 0 or apotema <= 0:
             return 0
-        perimetro = n_lados * lado
-        return (perimetro * apotema) / 2
+        return (n * lado * apotema) / 2
+
 
     def perimetro_poligono_regular(self, n_lados, lado):
         if n_lados < 3 or lado <= 0:
